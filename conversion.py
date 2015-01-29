@@ -38,7 +38,8 @@ class Conversion(object):
 
         If the value to be converted does not have an integer representation,
         the value is 0 (zero) or the value is beyond range a ValueError
-        exception is raised.
+        exception is raised. If the value is a floationg point number, it is
+        truncated to its integer value (e.g. 3.141592 is taken as 3).
 
         Default range is from 1 to max_rom_to_arab. If 'negatives' is set to
         True the range is increased to include negative numbers from -1 to
