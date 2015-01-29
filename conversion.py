@@ -27,8 +27,8 @@ class Conversion(object):
 
     # To increase the range of coverage, simply add the values with their
     # representation to the 'std.romans' tuple and update
-    # 'max_rom_to_arab' accordingly.
-    max_rom_to_arab = 3999
+    # 'max_arab_to_rom' accordingly.
+    max_arab_to_rom = 3999
 
     @staticmethod
     def arabic_to_roman(arabic, negatives=False):
@@ -41,9 +41,9 @@ class Conversion(object):
         exception is raised. If the value is a floationg point number, it is
         truncated to its integer value (e.g. 3.141592 is taken as 3).
 
-        Default range is from 1 to max_rom_to_arab. If 'negatives' is set to
+        Default range is from 1 to max_arab_to_rom. If 'negatives' is set to
         True the range is increased to include negative numbers from -1 to
-        negative 'max_rom_to_arab'.
+        negative 'max_arab_to_rom'.
         """
         try:
             value = int(arabic)
@@ -53,26 +53,28 @@ class Conversion(object):
 
         if value < 0:
             if negatives:
-                if abs(value) <= 3999:
+                if abs(value) <= Conversion.max_arab_to_rom:
                     res.append("-")
                     value = abs(value)
                 else:
                     mess = ("The number's absolute value must be %d or lower"
-                            % Conversion.max_rom_to_arab)
+                            % Conversion.max_arab_to_rom)
 
                     raise ValueError(mess)
             else:
-                raise ValueError("Negatives not supported by default, try using"
-                                 + " 'negatives=True' as a parameter")
+                raise ValueError("Negatives not supported by default, try"
+                                 + " using 'negatives=True' as a parameter")
 
-        if value == 0 or value > Conversion.max_rom_to_arab:
+        if value == 0 or value > Conversion.max_arab_to_rom:
             raise ValueError("Value must be an integer between 1 and %d"
-                             % Conversion.max_rom_to_arab)
+                             % Conversion.max_arab_to_rom)
         else:
             for arab, rom in Conversion.std_romans:
-                times = value//arab     # For 2.X, 3.X compatibility
-                if times:
-                    for i in range(times):
-                        res.append(rom)
+                times = value//arab         # For 2.X, 3.X compatibility
+                for _ in range(times):      # Variable purposefully unused
+                    res.append(rom)
                 value -= times*arab
             return "".join(res)
+
+    # More conversion methods to be put here in the future.
+    # E.g. roman_to_arabic.

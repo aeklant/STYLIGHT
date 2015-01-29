@@ -17,7 +17,7 @@ class conversionTest(unittest.TestCase):
 
     def test_arabic_to_roman_greater_than_max(self):
         self.assertRaises(ValueError, conversion.Conversion.arabic_to_roman,
-                          conversion.Conversion.max_rom_to_arab+1)
+                          conversion.Conversion.max_arab_to_rom+1)
 
     def test_arabic_to_roman_floating_point_number(self):
         self.assertEqual("XXI", conversion.Conversion.arabic_to_roman(21.15))
@@ -36,7 +36,8 @@ class conversionTest(unittest.TestCase):
         self.assertEqual("IV", conversion.Conversion.arabic_to_roman(4))
 
     def test_arabic_to_roman_five_hundred_seventy_eight(self):
-        self.assertEqual("DLXXVIII", conversion.Conversion.arabic_to_roman(578))
+        self.assertEqual("DLXXVIII",
+                         conversion.Conversion.arabic_to_roman(578))
 
     def test_arabic_to_roman_two(self):
         self.assertEqual("II", conversion.Conversion.arabic_to_roman(2))
@@ -64,7 +65,7 @@ class conversionTest(unittest.TestCase):
 
     def test_arabic_to_roman_lower_than_min_negatives_true(self):
         self.assertRaises(ValueError, conversion.Conversion.arabic_to_roman,
-                          0 - (conversion.Conversion.max_rom_to_arab+1), True)
+                          0 - (conversion.Conversion.max_arab_to_rom+1), True)
 
     def test_arabic_to_roman_floating_point_number_neg(self):
         self.assertEqual("-XXI",
@@ -83,14 +84,16 @@ class conversionTest(unittest.TestCase):
                          conversion.Conversion.arabic_to_roman(-3999, True))
 
     def test_arabic_to_roman_four_neg(self):
-        self.assertEqual("-IV", conversion.Conversion.arabic_to_roman(-4, True))
+        self.assertEqual("-IV",
+                         conversion.Conversion.arabic_to_roman(-4, True))
 
     def test_arabic_to_roman_five_hundred_seventy_eight_neg(self):
         self.assertEqual("-DLXXVIII",
                          conversion.Conversion.arabic_to_roman(-578, True))
 
     def test_arabic_to_roman_two_neg(self):
-        self.assertEqual("-II", conversion.Conversion.arabic_to_roman(-2, True))
+        self.assertEqual("-II",
+                         conversion.Conversion.arabic_to_roman(-2, True))
 
     def test_arabic_to_roman_thirteen_neg(self):
         self.assertEqual("-XIII",
